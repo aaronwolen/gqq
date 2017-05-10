@@ -26,7 +26,7 @@ scz
 First, let's create a qqplot for only the schizophrenia results:
 
 ```{r qqplot-scz, fig.width=8}
-qqPlot(scz$pval, bigPoints = 6)
+qqPlot(scz$pval, highlight = 6)
 ```
 
 Next, let's add points for the bipolar results:
@@ -38,7 +38,7 @@ bip
 
 ```{r qqplot-bip}
 <<qqplot-scz>>
-qqPlot(bip$pval, qpoints = TRUE, qColor = "red")
+qqPlot(bip$pval, qpoints = TRUE, qColor = "red", highlight = 6)
 ```
 
 

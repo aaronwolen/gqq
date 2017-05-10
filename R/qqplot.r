@@ -10,12 +10,16 @@
 #' @param cexSet numerical value giving the amount by which the points should be
 #'   magnified default = 1)
 #' @param maxAxis maximum range (on a log10 scale) of the X and Y axes
-#' @param bigPoints TODO
+#' @param highlight p-values above this (log10) threshold will be plotted with
+#'   points whose size is determined by \code{cex.highlight}, useful for
+#'   highlighting strong associations of interest
+#' @param cex.highlight the magnification applied to points above the
+#'   \code{highlight} threshold
 #'
 #' @examples
 #' library(pgcxd)
 #' scz
-#' qqPlot(scz$pval, bigPoints = 6)
+#' qqPlot(scz$pval, highlight = 6)
 
 qqPlot <-
   function(p,
@@ -25,10 +29,9 @@ qqPlot <-
            qpoints = FALSE,
            pchSet = 1,
            cexSet = 0.1,
-           bigPoints = NULL,
+           highlight = NULL,
+           cex.highlight = 1.2,
            maxAxis) {
-
-	cexJump<-5
 
 	p <- check_pvalues(p)
 
@@ -82,8 +85,8 @@ qqPlot <-
 
   points(null1F, logP1F, col = qColor, cex = cexSet, pch = pchSet)
 
-	if (!is.null(bigPoints)) {
-	  bps <- which(null1F > bigPoints)
-	  points(null1F[bps], logP1F[bps], col = qColor, cex = cexSet * cexJump, pch = pchSet)
+	if (!is.null(highlight)) {
+	  i <- which(null1F > highlight)
+	  points(null1F[i], logP1F[i], col = qColor, cex = cex.highlight, pch = pchSet)
 	}
 }
