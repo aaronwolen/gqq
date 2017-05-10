@@ -1,6 +1,6 @@
 #' Downsampled QQ-plot
 #'
-#' @param pvector1 vector of p-values
+#' @param p vector of p-values
 #' @param maxAxis maximum range (on a log10 scale) of the X and Y axes
 #' @param pdown p-value threshold for plot downsampling
 #' @param downsample proportion of points to plot
@@ -15,18 +15,27 @@
 #' @examples
 #' library(pgcxd)
 #' scz
-#' qqPlot(scz$pval, pdown = 3, downsample = 0.01, qpoints = FALSE, pchSet = 1, cexSet = 1, qColor = "black", bigPoints = 6)
+#' qqPlot(scz$p, pdown = 3, downsample = 0.01, qpoints = FALSE, pchSet = 1, cexSet = 1, qColor = "black", bigPoints = 6)
 
-qqPlot = function(pvector1, maxAxis,qpoints,qColor,pdown,downsample,cexSet,pchSet,bigPoints) {
+qqPlot <-
+  function(p,
+           maxAxis,
+           qpoints,
+           qColor,
+           pdown,
+           downsample,
+           cexSet,
+           pchSet,
+           bigPoints) {
+
 	#bigPoints<-5
 	#cexSet<-0.1
 	#pchSet<-1
 	cexJump<-5
-	pval<-pvector1
 
-	pval[pval == 0] <- min(pval[pval > 0])
+	p[p == 0] <- min(p[p > 0])
 
-	logP1 <- -log10(sort(na.omit(pval), decreasing = F))
+	logP1 <- -log10(sort(na.omit(p), decreasing = F))
 	N1 <- length(logP1) ## number of p-values
 
 	### create the null distribution (-log10 of the uniform)
