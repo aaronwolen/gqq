@@ -1,36 +1,33 @@
 #' Downsampled QQ-plot
 #'
 #' @param p vector of p-values
-#' @param maxAxis maximum range (on a log10 scale) of the X and Y axes
-#' @param pdown p-value threshold for plot downsampling
+#' @param pdown p-value threshold (on a log10 scale) for plot downsampling
 #' @param downsample proportion of points to plot
+#' @param qColor color of points
 #' @param qpoints logical, should the points be added to an existing plot?
 #' @param pchSet either an integer specifying a symbol or a single character to
 #'   be used as the default in plotting points
 #' @param cexSet numerical value giving the amount by which the points should be
 #'   magnified default = 1)
-#' @param qColor color of points
+#' @param maxAxis maximum range (on a log10 scale) of the X and Y axes
 #' @param bigPoints TODO
 #'
 #' @examples
 #' library(pgcxd)
 #' scz
-#' qqPlot(scz$p, pdown = 3, downsample = 0.01, qpoints = FALSE, pchSet = 1, cexSet = 1, qColor = "black", bigPoints = 6)
+#' qqPlot(scz$pval, bigPoints = 6)
 
 qqPlot <-
   function(p,
-           maxAxis,
-           qpoints,
-           qColor,
-           pdown,
-           downsample,
-           cexSet,
-           pchSet,
-           bigPoints) {
+           pdown = 3,
+           downsample = 0.01,
+           qColor = "grey20",
+           qpoints = FALSE,
+           pchSet = 1,
+           cexSet = 0.1,
+           bigPoints = NULL,
+           maxAxis) {
 
-	#bigPoints<-5
-	#cexSet<-0.1
-	#pchSet<-1
 	cexJump<-5
 
 	p[p == 0] <- min(p[p > 0])
@@ -85,7 +82,6 @@ qqPlot <-
 	par(new=T)
 	#plot(null1F, logP1F, ylim=c(0,MAXT), xlim=c(0,MAXT),xlab="Expected", ylab="Observed",cex=.5,col=qColor,pch=3 )
 	plot(null1F, logP1F, ylim=c(0,MAXT), xlim=c(0,MAXT),xlab="Expected", ylab="Observed",cex=cexSet,col=qColor,pch=pchSet )
-	points(null1F[null1F>bigPoints], logP1F[null1F>bigPoints],col=qColor,cex=cexSet*cexJump,pch=pchSet )
 
 	###No downsample for plotting
 	#plot(null1, logP1, ylim=c(0,MAXT), xlim=c(0,MAXT),xlab="Expected", ylab="Observed",cex=.5,col=qColor )
@@ -93,7 +89,10 @@ qqPlot <-
 
 	###Add qqpoints
 #	if(qpoints==T) {points(null1F, logP1F,col=qColor,cex=.5,pch=4 )}
-	if(qpoints==T) {points(null1F, logP1F,col=qColor,cex=cexSet,pch=pchSet )
-					points(null1F[null1F>bigPoints], logP1F[null1F>bigPoints],col=qColor,cex=cexSet*cexJump,pch=pchSet )}
+	if(qpoints==T)
+	  points(null1F, logP1F,col=qColor,cex=cexSet,pch=pchSet)
+
+	if (!is.null(bigPoints))
+	  points(null1F[null1F>bigPoints], logP1F[null1F>bigPoints],col=qColor,cex=cexSet*cexJump,pch=pchSet)
 #	if(qpoints==T) {points(null1, logP1,cex=.5,col=qColor,pch=4 )}
 }

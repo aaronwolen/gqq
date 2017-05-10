@@ -10,6 +10,7 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
+devtools::load_all()
 knitr::opts_chunk$set(fig.width=8, fig.height=6)
 ```
 
@@ -25,16 +26,7 @@ scz
 First, let's create a qqplot for only the schizophrenia results:
 
 ```{r qqplot-scz, fig.width=8}
-qqPlot(
-  scz$pval,
-  pdown = 3,
-  downsample = 0.01,
-  qpoints = FALSE,
-  pchSet = 1,
-  cexSet = 1,
-  qColor = "black",
-  bigPoints = 6
-  )
+qqPlot(scz$pval, bigPoints = 6)
 ```
 
 Next, let's add points for the bipolar results:
@@ -46,17 +38,7 @@ bip
 
 ```{r qqplot-bip}
 <<qqplot-scz>>
-
-qqPlot(
-  bip$pval,
-  pdown = 3,
-  downsample = 0.01,
-  qpoints = TRUE,
-  pchSet = 1,
-  cexSet = 1,
-  qColor = "red",
-  bigPoints = 6
-  )
+qqPlot(bip$pval, qpoints = TRUE, qColor = "red")
 ```
 
 
