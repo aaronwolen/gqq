@@ -58,8 +58,7 @@ qqPlot <-
 	logConf95 <- (-log(c95_1, 10))
 	logConf05 <- (-log(c05_1, 10))
 
-
-  # downsample values for plotting
+  # downsample values
 	cutT<-runif(N1)
 	null1F<-null1[(null1 <pdown &cutT <=downsample)| null1>=pdown]
 	logP1F<-logP1[(null1 <pdown &cutT <=downsample)| null1>=pdown]
@@ -67,24 +66,24 @@ qqPlot <-
 	logConf05F<-logConf05[(null1 <pdown &cutT <=downsample)| null1>=pdown]
 
 	# create new qqplot
-	if(qpoints==F) {
-	## plot the confidence lines
-	plot(null1F, logConf95F, ylim=c(0,MAXT), xlim=c(0,MAXT), type="l",axes=FALSE, xlab="", ylab="",col="red")
-	##No downsampling
-	par(new=T)
-	plot(null1F, logConf05F, ylim=c(0,MAXT), xlim=c(0,MAXT), type="l",axes=FALSE, xlab="", ylab="", col="red")
+	if(qpoints == FALSE) {
 
-	## add the diagonal
-	abline(0,1,col="red")
+	  plot(NA,
+	    type = "n",
+	    ylim = c(0, MAXT), xlim = c(0, MAXT),
+	    xlab = "Expected", ylab = "Observed"
+	  )
 
-	par(new=T)
-	plot(null1F, logP1F, ylim=c(0,MAXT), xlim=c(0,MAXT),xlab="Expected", ylab="Observed",cex=cexSet,col=qColor,pch=pchSet )
-  }
+	  # confidence intervals
+	  lines(null1F, logConf95F, col = "red")
+	  lines(null1F, logConf05F, col = "red")
+	  abline(0,1,col="red")
+	}
 
-	###Add qqpoints
-	if(qpoints==T)
-	  points(null1F, logP1F,col=qColor,cex=cexSet,pch=pchSet)
+  points(null1F, logP1F, col = qColor, cex = cexSet, pch = pchSet)
 
-	if (!is.null(bigPoints))
-	  points(null1F[null1F>bigPoints], logP1F[null1F>bigPoints],col=qColor,cex=cexSet*cexJump,pch=pchSet)
+	if (!is.null(bigPoints)) {
+	  bps <- which(null1F > bigPoints)
+	  points(null1F[bps], logP1F[bps], col = qColor, cex = cexSet * cexJump, pch = pchSet)
+	}
 }
