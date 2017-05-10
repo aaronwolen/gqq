@@ -1,15 +1,17 @@
-###Define  qqPlot function with ability to add additional qqpoints
-###Down sample
-#qColor ###Choose color for points
-#qpoints ###Is this the secondary plot? Not the first qqplot
-#MaxAxis ###define the maximum (log10)of the X & Y axes
-#pvector1 ###What pvalues to use
-#pdownThresh ###Define p-value threshold for plot downsampling p
-#downsample ### Proportion of points to plot
-#cexSet ###
-#pchSet ###
-#bigPoints ###
-
+#' Downsampled QQ-plot
+#'
+#' @param pvector1 vector of p-values
+#' @param maxAxis maximum range (on a log10 scale) of the X and Y axes
+#' @param pdown p-value threshold for plot downsampling
+#' @param downsample proportion of points to plot
+#' @param qpoints logical, should the points be added to an existing plot?
+#' @param pchSet either an integer specifying a symbol or a single character to
+#'   be used as the default in plotting points
+#' @param cexSet numerical value giving the amount by which the points should be
+#'   magnified default = 1)
+#' @param qColor color of points
+#' @param bigPoints TODO
+#'
 #' @examples
 #' library(pgcxd)
 #' scz
