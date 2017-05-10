@@ -59,40 +59,32 @@ qqPlot <-
 	logConf05 <- (-log(c05_1, 10))
 
 
-  ###Make downsampled values for plotting
+  # downsample values for plotting
 	cutT<-runif(N1)
 	null1F<-null1[(null1 <pdown &cutT <=downsample)| null1>=pdown]
 	logP1F<-logP1[(null1 <pdown &cutT <=downsample)| null1>=pdown]
 	logConf95F<-logConf95[(null1 <pdown &cutT <=downsample)| null1>=pdown]
 	logConf05F<-logConf05[(null1 <pdown &cutT <=downsample)| null1>=pdown]
 
-	###Create new qqplot
+	# create new qqplot
 	if(qpoints==F) {
 	## plot the confidence lines
 	plot(null1F, logConf95F, ylim=c(0,MAXT), xlim=c(0,MAXT), type="l",axes=FALSE, xlab="", ylab="",col="red")
 	##No downsampling
-#	plot(null1, logConf95, ylim=c(0,MAXT), xlim=c(0,MAXT), type="l",axes=FALSE, xlab="", ylab="",col="blue")
 	par(new=T)
 	plot(null1F, logConf05F, ylim=c(0,MAXT), xlim=c(0,MAXT), type="l",axes=FALSE, xlab="", ylab="", col="red")
-	##No downsampling
-#	plot(null1, logConf05, ylim=c(0,MAXT), xlim=c(0,MAXT), type="l",axes=FALSE, xlab="", ylab="", col="blue")
-	par(new=T)
+
 	## add the diagonal
 	abline(0,1,col="red")
-	par(new=T)
-	#plot(null1F, logP1F, ylim=c(0,MAXT), xlim=c(0,MAXT),xlab="Expected", ylab="Observed",cex=.5,col=qColor,pch=3 )
-	plot(null1F, logP1F, ylim=c(0,MAXT), xlim=c(0,MAXT),xlab="Expected", ylab="Observed",cex=cexSet,col=qColor,pch=pchSet )
 
-	###No downsample for plotting
-	#plot(null1, logP1, ylim=c(0,MAXT), xlim=c(0,MAXT),xlab="Expected", ylab="Observed",cex=.5,col=qColor )
-					}
+	par(new=T)
+	plot(null1F, logP1F, ylim=c(0,MAXT), xlim=c(0,MAXT),xlab="Expected", ylab="Observed",cex=cexSet,col=qColor,pch=pchSet )
+  }
 
 	###Add qqpoints
-#	if(qpoints==T) {points(null1F, logP1F,col=qColor,cex=.5,pch=4 )}
 	if(qpoints==T)
 	  points(null1F, logP1F,col=qColor,cex=cexSet,pch=pchSet)
 
 	if (!is.null(bigPoints))
 	  points(null1F[null1F>bigPoints], logP1F[null1F>bigPoints],col=qColor,cex=cexSet*cexJump,pch=pchSet)
-#	if(qpoints==T) {points(null1, logP1,cex=.5,col=qColor,pch=4 )}
 }
