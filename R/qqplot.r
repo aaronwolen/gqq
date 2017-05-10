@@ -32,7 +32,7 @@ qqPlot <-
 
 	p <- check_pvalues(p)
 
-	logP1 <- -log10(sort(na.omit(p), decreasing = F))
+	logP1 <- -log10(sort(p, decreasing = F))
 	N1 <- length(logP1) ## number of p-values
 
 	### create the null distribution (-log10 of the uniform)
