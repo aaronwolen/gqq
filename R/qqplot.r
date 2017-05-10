@@ -16,28 +16,37 @@ qqPlot = function(pvector1, maxAxis,qpoints,qColor,pdown,downsample,cexSet,pchSe
 	#pchSet<-1
 	cexJump<-5
 	pval<-pvector1
-	pval[pval==0]<-min(pval[pval>0])
-	logP1<- -log(sort(na.omit(pval),decreasing=F),10)
+
+	pval[pval == 0] <- min(pval[pval > 0])
+
+	logP1 <- -log10(sort(na.omit(pval), decreasing = F))
 	N1 <- length(logP1) ## number of p-values
+
 	### create the null distribution (-log10 of the uniform)
-	null1 <- -log(1:N1/N1,10)
-	MAX1 <- max(c(logP1,null1))
-	if (missing(maxAxis))MAXT<-MAX1 else MAXT <-maxAxis
+	null1 <- -log10(seq_len(N1) / N1)
+	MAX1 <- max(c(logP1, null1))
+
+	if (missing(maxAxis))
+	  MAXT<-MAX1
+	else
+	  MAXT <-maxAxis
 
 	### create the confidence intervals
 	c95_1 <- rep(0,N1)
 	c05_1 <- rep(0,N1)
+
 	### the jth order statistic from a uniform(0,1) sample has a beta(j,n-j+1) distribution
 	###(Casella & Berger, 2002, 2nd edition, pg 230, Duxbury)
-	for(ii in 1:N1){
-		c95_1[ii] <- qbeta(0.95,ii,N1-ii+1)
-		c05_1[ii] <- qbeta(0.05,ii,N1-ii+1)
-					}
+	for(ii in 1:N1) {
+	  c95_1[ii] <- qbeta(0.95, ii, N1 - ii + 1)
+	  c05_1[ii] <- qbeta(0.05, ii, N1 - ii + 1)
+	}
 
-	logConf95<-(-log(c95_1,10))
-	logConf05<-(-log(c05_1,10))
+	logConf95 <- (-log(c95_1, 10))
+	logConf05 <- (-log(c05_1, 10))
 
-	###Make downsampled values for plotting
+
+  ###Make downsampled values for plotting
 	cutT<-runif(N1)
 	null1F<-null1[(null1 <pdown &cutT <=downsample)| null1>=pdown]
 	logP1F<-logP1[(null1 <pdown &cutT <=downsample)| null1>=pdown]
