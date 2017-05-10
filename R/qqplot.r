@@ -30,7 +30,7 @@ qqPlot <-
 
 	cexJump<-5
 
-	p[p == 0] <- min(p[p > 0])
+	p <- check_pvalues(p)
 
 	logP1 <- -log10(sort(na.omit(p), decreasing = F))
 	N1 <- length(logP1) ## number of p-values
