@@ -1,0 +1,62 @@
+---
+title: "Introduction to qqplotr package"
+author: "Aaron Wolen"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to qqplotr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.width=8, fig.height=6)
+```
+
+
+For this demonstration of the qqplotr package we will work with GWAS summary statistics from the PGC's cross disorder analysis.
+
+```{r scz-data}
+# devtools::install_github("aaronwolen/pgcxd")
+library(pgcxd)
+scz
+```
+
+First, let's create a qqplot for only the schizophrenia results:
+
+```{r qqplot-scz, fig.width=8}
+qqPlot(
+  scz$pval,
+  pdown = 3,
+  downsample = 0.01,
+  qpoints = FALSE,
+  pchSet = 1,
+  cexSet = 1,
+  qColor = "black",
+  bigPoints = 6
+  )
+```
+
+Next, let's add points for the bipolar results:
+
+```{r bip-data}
+bip
+```
+
+
+```{r qqplot-bip}
+<<qqplot-scz>>
+
+qqPlot(
+  bip$pval,
+  pdown = 3,
+  downsample = 0.01,
+  qpoints = TRUE,
+  pchSet = 1,
+  cexSet = 1,
+  qColor = "red",
+  bigPoints = 6
+  )
+```
+
+
