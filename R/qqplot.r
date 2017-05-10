@@ -10,6 +10,11 @@
 #pchSet ###
 #bigPoints ###
 
+#' @examples
+#' library(pgcxd)
+#' scz
+#' qqPlot(scz$pval, pdown = 3, downsample = 0.01, qpoints = FALSE, pchSet = 1, cexSet = 1, qColor = "black", bigPoints = 6)
+
 qqPlot = function(pvector1, maxAxis,qpoints,qColor,pdown,downsample,cexSet,pchSet,bigPoints) {
 	#bigPoints<-5
 	#cexSet<-0.1
