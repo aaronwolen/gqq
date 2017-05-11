@@ -38,7 +38,7 @@ bip
 
 ```{r qqplot-bip}
 <<qqplot-scz>>
-qqPlot(bip$pval, qpoints = TRUE, qColor = "red", highlight = 6)
+qqPlot(bip$pval, qpoints = TRUE, col = "red", highlight = 6)
 ```
 
 

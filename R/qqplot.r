@@ -3,15 +3,15 @@
 #' @param p vector of p-values
 #' @param pdown p-value threshold (on a log10 scale) for plot downsampling
 #' @param downsample proportion of points to plot
-#' @param qColor color of points
+#' @param pch plotting 'character' (i.e., symbol) to use. See
+#'   \code{\link[graphics]{points}} for possible values.
+#' @param col color code or name, see \code{\link[graphics]{par}}
+#' @param cex character (or symbol) expansion: a numerical vector. This works as
+#'   a multiple of \code{\link[graphics]{par}("cex")}.
 #' @param qpoints logical, should the points be added to an existing plot?
 #' @param ci.level confidence level between 0 and 1. Set \code{ci.level = NULL} to
 #'   avoid plotting confidence intervals (ignored if \code{qpoints = TRUE})
 #' @param ci.color color of confidence interval band
-#' @param pchSet either an integer specifying a symbol or a single character to
-#'   be used as the default in plotting points
-#' @param cexSet numerical value giving the amount by which the points should be
-#'   magnified default = 1)
 #' @param maxAxis maximum range (on a log10 scale) of the X and Y axes
 #' @param highlight p-values above this (log10) threshold will be plotted with
 #'   points whose size is determined by \code{cex.highlight}, useful for
@@ -28,12 +28,12 @@ qqPlot <-
   function(p,
            pdown = 3,
            downsample = 0.01,
-           qColor = "grey20",
+           pch = 1,
+           col = "grey20",
+           cex = 0.1,
            qpoints = FALSE,
            ci.level = 0.9,
            ci.color = "grey70",
-           pchSet = 1,
-           cexSet = 0.1,
            highlight = NULL,
            cex.highlight = 1.2,
            maxAxis) {
@@ -71,10 +71,10 @@ qqPlot <-
 	  abline(0, 1, col = ci.color)
 	}
 
-  points(null1F, logP1F, col = qColor, cex = cexSet, pch = pchSet)
+  points(null1F, logP1F, col = col, cex = cex, pch = pch)
 
 	if (!is.null(highlight)) {
 	  i <- which(null1F > highlight)
-	  points(null1F[i], logP1F[i], col = qColor, cex = cex.highlight, pch = pchSet)
+	  points(null1F[i], logP1F[i], col = col, cex = cex.highlight, pch = pch)
 	}
 }
