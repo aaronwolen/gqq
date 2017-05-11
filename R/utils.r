@@ -33,13 +33,9 @@ calc_ci <- function(n, level = 0.95) {
   tail <- (1 - level) / 2
   p <- c(0 + tail, 1 - tail)
 
-  c95 <- rep(0, n)
-	c05 <- rep(0, n)
+  nseq <- seq_len(n)
+  lo <- qbeta(0.95, nseq, n - nseq + 1)
+	hi <- qbeta(0.05, nseq, n - nseq + 1)
 
-	for(i in 1:n) {
-    c95[i] <- qbeta(0.95, i, n - i + 1)
-	  c05[i] <- qbeta(0.05, i, n - i + 1)
-	}
-
-	list(lo = -log10(c95), hi = -log10(c05))
+	list(lo = -log10(lo), hi = -log10(hi))
 }
