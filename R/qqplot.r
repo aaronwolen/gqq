@@ -41,14 +41,14 @@ qqPlot <-
 	p <- check_pvalues(p)
 
 	logP1 <- -log10(sort(p, decreasing = F))
-	N1 <- length(logP1) ## number of p-values
+	n <- length(logP1)
 
 	### create the null distribution (-log10 of the uniform)
-	null1 <- -log10(seq_len(N1) / N1)
+	null1 <- -log10(seq_len(n) / n)
 	max.axis <- if (is.null(max.axis)) max(c(logP1, null1))
 
   # downsample values
-	cutT <- runif(N1)
+	cutT <- runif(n)
 	index <- (null1 < pdown & cutT <= downsample) | null1 >= pdown
 	null1F <- null1[index]
 	logP1F <- logP1[index]
@@ -64,7 +64,7 @@ qqPlot <-
 
 	  # confidence intervals
 	  if (!is.null(ci.level)) {
-	    ci <- calc_ci(N1, ci.level)
+	    ci <- calc_ci(n, ci.level)
 	    lines(null1, ci$lo, col = ci.color)
 	    lines(null1, ci$hi, col = ci.color)
 	  }
