@@ -12,7 +12,7 @@
 #' @param ci.level confidence level between 0 and 1. Set \code{ci.level = NULL} to
 #'   avoid plotting confidence intervals (ignored if \code{qpoints = TRUE})
 #' @param ci.color color of confidence interval band
-#' @param maxAxis maximum range (on a log10 scale) of the X and Y axes
+#' @param max.axix maximum range (on a log10 scale) of the X and Y axes
 #' @param highlight p-values above this (log10) threshold will be plotted with
 #'   points whose size is determined by \code{cex.highlight}, useful for
 #'   highlighting strong associations of interest
@@ -36,7 +36,7 @@ qqPlot <-
            ci.color = "grey70",
            highlight = NULL,
            cex.highlight = 1.2,
-           maxAxis) {
+           max.axis = NULL) {
 
 	p <- check_pvalues(p)
 
@@ -45,7 +45,7 @@ qqPlot <-
 
 	### create the null distribution (-log10 of the uniform)
 	null1 <- -log10(seq_len(N1) / N1)
-	MAXT <- ifelse(missing(maxAxis), max(c(logP1, null1)), maxAxis)
+	max.axis <- if (is.null(max.axis)) max(c(logP1, null1))
 
   # downsample values
 	cutT <- runif(N1)
@@ -58,7 +58,7 @@ qqPlot <-
 
 	  plot(NA,
 	    type = "n",
-	    ylim = c(0, MAXT), xlim = c(0, MAXT),
+	    ylim = c(0, max.axis), xlim = c(0, max.axis),
 	    xlab = "Expected", ylab = "Observed"
 	  )
 
