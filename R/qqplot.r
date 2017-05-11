@@ -40,18 +40,18 @@ qqPlot <-
 
 	p <- check_pvalues(p)
 
-	logP1 <- -log10(sort(p, decreasing = F))
-	n <- length(logP1)
+	p <- -log10(sort(p, decreasing = F))
+	n <- length(p)
 
 	### create the null distribution (-log10 of the uniform)
 	null1 <- -log10(seq_len(n) / n)
-	max.axis <- if (is.null(max.axis)) max(c(logP1, null1))
+	max.axis <- if (is.null(max.axis)) max(c(p, null1))
 
   # downsample values
 	cutT <- runif(n)
 	index <- (null1 < pdown & cutT <= downsample) | null1 >= pdown
 	null1F <- null1[index]
-	logP1F <- logP1[index]
+	pF <- p[index]
 
 	# create new qqplot
 	if(qpoints == FALSE) {
@@ -71,10 +71,10 @@ qqPlot <-
 	  abline(0, 1, col = ci.color)
 	}
 
-  points(null1F, logP1F, col = col, cex = cex, pch = pch)
+  points(null1F, pF, col = col, cex = cex, pch = pch)
 
 	if (!is.null(highlight)) {
 	  i <- which(null1F > highlight)
-	  points(null1F[i], logP1F[i], col = col, cex = cex.highlight, pch = pch)
+	  points(null1F[i], pF[i], col = col, cex = cex.highlight, pch = pch)
 	}
 }
