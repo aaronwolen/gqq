@@ -47,20 +47,10 @@ qqPlot <-
 	null1 <- -log10(seq_len(N1) / N1)
 	MAXT <- ifelse(missing(maxAxis), max(c(logP1, null1)), maxAxis)
 
-  # confidence intervals
-	if (!is.null(ci.level)) {
-	  ci <- calc_ci(N1, ci.level)
-	}
-
   # downsample values
 	cutT<-runif(N1)
 	null1F<-null1[(null1 <pdown &cutT <=downsample)| null1>=pdown]
 	logP1F<-logP1[(null1 <pdown &cutT <=downsample)| null1>=pdown]
-
-	if (!is.null(ci.level)) {
-	  ci$lo<-ci$lo[(null1 <pdown &cutT <=downsample)| null1>=pdown]
-	  ci$hi<-ci$hi[(null1 <pdown &cutT <=downsample)| null1>=pdown]
-	}
 
 	# create new qqplot
 	if(qpoints == FALSE) {
@@ -73,10 +63,10 @@ qqPlot <-
 
 	  # confidence intervals
 	  if (!is.null(ci.level)) {
-      lines(null1F, ci$lo, col = ci.color)
-	    lines(null1F, ci$hi, col = ci.color)
+	    ci <- calc_ci(N1, ci.level)
+	    lines(null1, ci$lo, col = ci.color)
+	    lines(null1, ci$hi, col = ci.color)
 	  }
-
 	  abline(0, 1, col = ci.color)
 	}
 
