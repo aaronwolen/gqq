@@ -24,3 +24,22 @@ check_pvalues <- function(p) {
 
   return(p)
 }
+
+
+# calculate confidence intervals
+# the jth order statistic from a uniform(0,1) sample has a beta(j,n-j+1) distribution
+# (Casella & Berger, 2002, 2nd edition, pg 230, Duxbury)
+calc_ci <- function(n, level = 0.95) {
+  tail <- (1 - level) / 2
+  p <- c(0 + tail, 1 - tail)
+
+  c95 <- rep(0, n)
+	c05 <- rep(0, n)
+
+	for(i in 1:n) {
+    c95[i] <- qbeta(0.95, i, n - i + 1)
+	  c05[i] <- qbeta(0.05, i, n - i + 1)
+	}
+
+	list(lo = -log10(c95), hi = -log10(c05))
+}

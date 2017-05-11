@@ -40,33 +40,17 @@ qqPlot <-
 
 	### create the null distribution (-log10 of the uniform)
 	null1 <- -log10(seq_len(N1) / N1)
-	MAX1 <- max(c(logP1, null1))
+	MAXT <- ifelse(missing(maxAxis), max(c(logP1, null1)), maxAxis)
 
-	if (missing(maxAxis))
-	  MAXT<-MAX1
-	else
-	  MAXT <-maxAxis
-
-	### create the confidence intervals
-	c95_1 <- rep(0,N1)
-	c05_1 <- rep(0,N1)
-
-	### the jth order statistic from a uniform(0,1) sample has a beta(j,n-j+1) distribution
-	###(Casella & Berger, 2002, 2nd edition, pg 230, Duxbury)
-	for(ii in 1:N1) {
-	  c95_1[ii] <- qbeta(0.95, ii, N1 - ii + 1)
-	  c05_1[ii] <- qbeta(0.05, ii, N1 - ii + 1)
-	}
-
-	logConf95 <- (-log(c95_1, 10))
-	logConf05 <- (-log(c05_1, 10))
+  # confidence intervals
+	ci <- calc_ci(N1, 0.9)
 
   # downsample values
 	cutT<-runif(N1)
 	null1F<-null1[(null1 <pdown &cutT <=downsample)| null1>=pdown]
 	logP1F<-logP1[(null1 <pdown &cutT <=downsample)| null1>=pdown]
-	logConf95F<-logConf95[(null1 <pdown &cutT <=downsample)| null1>=pdown]
-	logConf05F<-logConf05[(null1 <pdown &cutT <=downsample)| null1>=pdown]
+	ci$lo<-ci$lo[(null1 <pdown &cutT <=downsample)| null1>=pdown]
+	ci$hi<-ci$hi[(null1 <pdown &cutT <=downsample)| null1>=pdown]
 
 	# create new qqplot
 	if(qpoints == FALSE) {
@@ -78,8 +62,8 @@ qqPlot <-
 	  )
 
 	  # confidence intervals
-	  lines(null1F, logConf95F, col = "red")
-	  lines(null1F, logConf05F, col = "red")
+	  lines(null1F, ci$lo, col = "red")
+	  lines(null1F, ci$hi, col = "red")
 	  abline(0,1,col="red")
 	}
 
