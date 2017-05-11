@@ -48,9 +48,10 @@ qqPlot <-
 	MAXT <- ifelse(missing(maxAxis), max(c(logP1, null1)), maxAxis)
 
   # downsample values
-	cutT<-runif(N1)
-	null1F<-null1[(null1 <pdown &cutT <=downsample)| null1>=pdown]
-	logP1F<-logP1[(null1 <pdown &cutT <=downsample)| null1>=pdown]
+	cutT <- runif(N1)
+	index <- (null1 < pdown & cutT <= downsample) | null1 >= pdown
+	null1F <- null1[index]
+	logP1F <- logP1[index]
 
 	# create new qqplot
 	if(qpoints == FALSE) {
