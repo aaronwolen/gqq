@@ -44,13 +44,13 @@ qqPlot <-
 	n <- length(p)
 
 	### create the null distribution (-log10 of the uniform)
-	null1 <- -log10(seq_len(n) / n)
-	max.axis <- if (is.null(max.axis)) max(c(p, null1))
+	null <- -log10(seq_len(n) / n)
+	max.axis <- if (is.null(max.axis)) max(c(p, null))
 
   # downsample values
 	cutT <- runif(n)
-	index <- (null1 < pdown & cutT <= downsample) | null1 >= pdown
-	null1F <- null1[index]
+	index <- (null < pdown & cutT <= downsample) | null >= pdown
+	nullF <- null[index]
 	pF <- p[index]
 
 	# create new qqplot
@@ -65,16 +65,16 @@ qqPlot <-
 	  # confidence intervals
 	  if (!is.null(ci.level)) {
 	    ci <- calc_ci(n, ci.level)
-	    lines(null1, ci$lo, col = ci.color)
-	    lines(null1, ci$hi, col = ci.color)
+	    lines(null, ci$lo, col = ci.color)
+	    lines(null, ci$hi, col = ci.color)
 	  }
 	  abline(0, 1, col = ci.color)
 	}
 
-  points(null1F, pF, col = col, cex = cex, pch = pch)
+  points(nullF, pF, col = col, cex = cex, pch = pch)
 
 	if (!is.null(highlight)) {
-	  i <- which(null1F > highlight)
-	  points(null1F[i], pF[i], col = col, cex = cex.highlight, pch = pch)
+	  i <- which(nullF > highlight)
+	  points(nullF[i], pF[i], col = col, cex = cex.highlight, pch = pch)
 	}
 }
