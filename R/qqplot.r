@@ -43,8 +43,8 @@ qqPlot <-
 	p <- -log10(sort(p, decreasing = F))
 	n <- length(p)
 
-	### create the null distribution (-log10 of the uniform)
-	null <- -log10(seq_len(n) / n)
+	# create the null distribution (-log10 of the uniform)
+	null <- -log10(ppoints(n))
 	max.axis <- if (is.null(max.axis)) max(c(p, null))
 
   # downsample values
