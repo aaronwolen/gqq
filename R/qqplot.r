@@ -12,19 +12,22 @@
 #' @param ci.level confidence level between 0 and 1. Set \code{ci.level = NULL} to
 #'   avoid plotting confidence intervals (ignored if \code{qpoints = TRUE})
 #' @param ci.color color of confidence interval band
-#' @param max.axix maximum range (on a log10 scale) of the X and Y axes
+#' @param max.axis maximum range (on a log10 scale) of the X and Y axes
 #' @param highlight p-values above this (log10) threshold will be plotted with
 #'   points whose size is determined by \code{cex.highlight}, useful for
 #'   highlighting strong associations of interest
 #' @param cex.highlight the magnification applied to points above the
 #'   \code{highlight} threshold
 #' @export
+#' @import stats graphics
 #'
 #' @examples
-#' library(pgcxd)
-#' scz
-#' qq_plot(scz$pval, highlight = 6)
-
+#' qq_plot(runif(1e5))
+#'
+#' if (requireNamespace("pgcxd")) {
+#'   data("scz", package = "pgcxd")
+#'   qq_plot(scz$pval, highlight = 6)
+#' }
 qq_plot <-
   function(p,
            pdown = 3,

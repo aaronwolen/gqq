@@ -10,7 +10,6 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-devtools::load_all()
 knitr::opts_chunk$set(fig.width=8, fig.height=6)
 ```
 
@@ -26,6 +25,7 @@ scz
 First, let's create a qqplot for only the schizophrenia results:
 
 ```{r qqplot-scz, fig.width=8}
+library(gqq)
 qq_plot(scz$pval, highlight = 6)
 ```
 
