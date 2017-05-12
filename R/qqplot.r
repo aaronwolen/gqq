@@ -22,9 +22,9 @@
 #' @examples
 #' library(pgcxd)
 #' scz
-#' qqPlot(scz$pval, highlight = 6)
+#' qq_plot(scz$pval, highlight = 6)
 
-qqPlot <-
+qq_plot <-
   function(p,
            pdown = 3,
            downsample = 0.01,
