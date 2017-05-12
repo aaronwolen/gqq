@@ -8,6 +8,8 @@ Authors@R: c(
     as.person("VCU Alcohol Research Center [fnd]"))
 Description: Efficiently create GWAS QQ-plots through selective downsampling of
     densely overplotted data points approaching 0.
+URL: https://github.com/aaronwolen/gqq
+BugReports: https://github.com/aaronwolen/gqq/issues
 Imports:
     stats,
     graphics
@@ -15,6 +17,8 @@ Suggests: knitr,
     rmarkdown,
     testthat,
     pgcxd
+Remotes:
+    aaronwolen/pgcxd
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
