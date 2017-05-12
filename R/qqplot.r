@@ -18,6 +18,7 @@
 #'   highlighting strong associations of interest
 #' @param cex.highlight the magnification applied to points above the
 #'   \code{highlight} threshold
+#' @export
 #'
 #' @examples
 #' library(pgcxd)
