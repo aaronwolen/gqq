@@ -1,5 +1,18 @@
 #' Downsampled QQ-plot
 #'
+#' Downsampling reduces the number of points to be plotted. Since QQ-plots are
+#' on a logarithmic scale, near the origin (approaching 1) is very dense and most
+#' points are plotted over each other. However, the end of the distribution
+#' (approaching 0) is sparse. In order to make plotting more efficient by not
+#' plotting redundant points and also not lose information, there are two
+#' parameters needed for downsampling. The first is the proportion of points to
+#' randomly remove (-downsample). The second is the threshold (-pdown) for which
+#' points will be downsampled. For example, the options "-downsample 0.01
+#' -pdown 10e-3" would random choose 1% of p-values greater than 0.001. All
+#' p-values < 0.001 would be plotted. For one million tests, this reduces the
+#' number of points plotted to 10990 ((1,000,000*(1-0.001)*.01)+
+#' (1,000,000*0.001)).
+#'
 #' @param p vector of p-values
 #' @param pdown p-value threshold (on a log10 scale) for plot downsampling
 #' @param downsample proportion of points to plot
