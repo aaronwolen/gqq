@@ -1,4 +1,4 @@
 library(testthat)
-library(qqplotr)
+library(gqq)
 
-test_check("qqplotr")
+test_check("gqq")

@@ -1,4 +1,4 @@
-Package: qqplotr
+Package: gqq
 Type: Package
 Title: Fast QQ-plots for GWAS results 
 Version: 0.1.0

@@ -1,10 +1,10 @@
 ---
-title: "Introduction to qqplotr package"
+title: "Introduction to gqq package"
 author: "Aaron Wolen"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to qqplotr}
+  %\VignetteIndexEntry{Introduction to gqq}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
